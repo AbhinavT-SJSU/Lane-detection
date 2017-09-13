@@ -1,0 +1,30 @@
+import numpy as np
+import matplotlib.image as mpimg
+import matplotlib.pyplot as plt
+
+
+image = mpimg.imread('C:\Python 3.6\Re_KK\\yellow-line.jpg')   #Read the Image
+
+ysize = image.shape[0]
+xsize = image.shape[1]
+color_select = np.copy(image)   # make a copy of image
+
+red_threshold = 200     #Set RGB values for White
+green_threshold = 200
+blue_threshold = 200
+
+#red_threshold = 250     #Set RGB values for Yellow
+#green_threshold = 130
+#blue_threshold = 0
+
+rgb_threshold = [red_threshold, green_threshold, blue_threshold]
+
+thresholds = (image[:,:,0] < rgb_threshold[0]) \
+            | (image[:,:,1] < rgb_threshold[1]) \
+            | (image[:,:,2] < rgb_threshold[2])
+color_select[thresholds] = [0,0,0]      # Find the pixels below the required set value.
+
+plt.imshow(color_select) # Display the image                 
+
+mpimg.imsave("white_1st.jpg", color_select) 
+#mpimg.imsave("yellow_1st.jpg", color_select) 
